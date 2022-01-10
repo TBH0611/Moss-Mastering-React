@@ -20,11 +20,16 @@ class Counter extends Component {
     render()
     {
         return (
-            <React.Fragment>            
+             <div className="row">
+            <div className="col-1">
                 <span style={this.styles} className={this.getBadgeClasses()}>{this.formatCount()}</span>
-                <button onClick={() => this.props.OnIncrement(this.props.counter)} className="btn btn-secondary btn-sm">Increment</button>
-                <button onClick={() => this.props.OnDelete(this.props.counter)} className="btn btn-danger btn-small m-2">Delete</button> 
-            </React.Fragment>
+            </div>
+            <div className="col">
+                  <button onClick={() => this.props.OnIncrement(this.props.counter)} className="btn btn-secondary btn-lg">+</button>
+                    <button onClick={() => this.props.OnDecrement(this.props.counter)}  className="btn btn-secondary btn-lg m-2" disabled={this.props.counter.value === 0 ? "disabled" : ""}>-</button>
+                    <button onClick={() => this.props.OnDelete(this.props.counter)} className="btn btn-danger btn-lg">X</button> 
+            </div>
+            </div>
         )
      
     }
