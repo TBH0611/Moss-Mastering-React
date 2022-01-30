@@ -13,7 +13,7 @@ class  Counters extends React.Component {
             {this.props.counters.map(counter => <div><Counter key={counter.id} 
                                                                                     OnDelete={() => OnDelete(counter)}  
                                                                                     OnIncrement={() => OnIncrement(counter)}
-                                                                                    OnDecrement={()=>OnDecrement(counter)}
+                                                                                    OnDecrement={() => OnDecrement(counter)}
                                                                                     counter={counter} /><br/></div>)}
             </div>
         ) 
