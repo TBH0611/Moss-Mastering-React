@@ -7,6 +7,7 @@ import Like from './common/like';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
 import paginate  from './utils/paginate';
+import MoviesTable from './common/moviesTable';
 
 class Movies extends Component {
     state = { 
@@ -20,7 +21,7 @@ class Movies extends Component {
      componentDidMount = () => {
          this.setState({
             movies: getMovies(),
-            genres: getGenres()          
+            genres: [{ _id: "", name: "All Genres" }, ...getGenres()]           
         } 
          )
      };
@@ -49,33 +50,45 @@ class Movies extends Component {
     handlePageChange = (page) => {
         //console.log(page);
         //const { pageSize, currentPage, movies: allMovies} = this.state;
-        this.setState({currentPage : page});
-        //const movies = paginate(allMovies, currentPage, pageSize);
+        this.setState({currentPage : page}, () =>
+        {
+            console.log(this.state.currentPage);
+        });
+       //const movies = paginate(allMovies, currentPage, pageSize);
     }
 
-    handleItemSelected = (item) => {
-        this.setState({selectedGenre: item});
-        console.log(item);
+    handleGenreSelect = (item) => {
+        this.setState({selectedGenre: item, currentPage: 1}, () => {
+            console.log('selectedGenre', this.state.selectedGenre);
+        });
+
+        
+
     }
 
     render() { 
 
-        const { length: count  } = this.state.movies;
+
+        ///const { length: count  } = this.state.movies;
         const { pageSize, currentPage, movies: allMovies, genres, selectedGenre} = this.state;
         
+        const filteredMovies = selectedGenre === null || selectedGenre._id === "" ? allMovies :  allMovies.filter(x => x.genre._id === selectedGenre._id);
+        const count = filteredMovies.length;
+
         if (count > 0 )
         {
-            const movies = paginate(allMovies, currentPage, pageSize);
+            const movies = paginate(filteredMovies, currentPage, pageSize);
             return (
                 <main className="container">
                     <br/>
                     <div className="row">
                         <div className="col-2">
-                            <ListGroup items={genres} onItemSelected={this.handleItemSelected} selectedItem={selectedGenre}/>
+                            <ListGroup items={genres} onItemSelected={this.handleGenreSelect} selectedItem={selectedGenre}/>
                         </div>
                         <div className="col">
                             <p>Showing {count} movies in the database</p>    
-                            <table border="1" width="60%" className="table">
+                            <MoviesTable movies={movies} onDelete={this.handleDelete} onLike={this.handleLike}/>
+                            {/* <table border="1" width="60%" className="table">
                             <thead>
                             <tr>    
                                 <th width="40%">Title</th>
@@ -95,7 +108,7 @@ class Movies extends Component {
                                                                                     <td><Like liked={movie.liked} onClick={() => this.handleLike(movie)}/></td>
                                                                                     </tr>)}
                             </tbody>                                        
-                            </table>
+                            </table> */}
                             <Pagination itemCount={count} currentPage={currentPage} pageSize={pageSize} onPageChange={this.handlePageChange}/>
                         </div>
                 </div>

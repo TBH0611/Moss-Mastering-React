@@ -35,6 +35,22 @@ const movies = [
     liked: false
   },
   {
+    _id: "5b21ca3eeb7f6fbccd481619",
+    title: "Midnight Run",
+    genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
+    numberInStock: 9,
+    dailyRentalRate: 3.5,
+    liked: false
+  },
+  {
+    _id: "5b21ca3eeb7f6fxdls471819",
+    title: "My Cousin Vinny",
+    genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
+    numberInStock: 9,
+    dailyRentalRate: 3.5,
+    liked: false
+  },
+  {
     _id: "5b21ca3eeb7f6fbccd47181a",
     title: "Airplane",
     genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
@@ -49,6 +65,14 @@ const movies = [
     numberInStock: 7,
     dailyRentalRate: 3.5,
     liked: false
+  },
+  {
+    _id: "5b21ca3eeb7abcdccd47181b",
+    title: "Dumb and Dumber",
+    genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
+    numberInStock: 12,
+    dailyRentalRate: 4.5,
+    liked: true
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181e",
@@ -76,7 +100,7 @@ const movies = [
   }
 ];
 
-export function getMovies() {
+export function  getMovies() {
   return movies;
 }
 
